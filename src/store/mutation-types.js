@@ -1,0 +1,9 @@
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
+
+export const SET_CURRENT_DEPTH = 'SET_CURRENT_DEPTH'
+
+// export const SET_SUBMISSIONS = 'SET_SUBMISSIONS'
+//
+// export const SET_TOP_SELLERS = 'SET_TOP_SELLERS'
+//
+// export const SET_ATTRIBUTES = 'SET_ATTRIBUTES'
