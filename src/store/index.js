@@ -9,11 +9,12 @@ import categories from './modules/categories'
 Vue.use(Vuex)
 
 const state = {
-  currentDepth: 6,
-  currentBrowseNode: {
-    name: 'Tops & Tees',
-    nodeId: '2368343011'
-  },
+  currentDepth: 5,
+  currentBrowseNode: null,
+  // {
+  //   name: 'Tops & Tees',
+  //   nodeId: '2368343011'
+  // },
   submissions: [],
   topSellers: [],
   attributes: []

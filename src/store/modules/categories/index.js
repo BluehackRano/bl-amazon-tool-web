@@ -110,10 +110,11 @@ const state = {
     {
       depth: 5,
       label: '05',
-      selected: {
-        name:'Tops & Tees',
-        nodeId:'2368343011'
-      },
+      selected: null,
+      // {
+      //   name:'Tops & Tees',
+      //   nodeId:'2368343011'
+      // },
       nodes: [
         {
           name:'Dresses',
@@ -170,27 +171,27 @@ const state = {
       label: '06',
       selected: null,
       nodes: [
-        {
-          name:'Blouses & Button-Down Shirts',
-          nodeId:'2368365011'},
-        {
-          name:'Henleys',
-          nodeId:'5418124011'},
-        {
-          name:'Knits & Tees',
-          nodeId:'1044544'},
-        {
-          name:'Polos',
-          nodeId:'1044548'},
-        {
-          name:'Tanks & Camis',
-          nodeId:'2368344011'},
-        {
-          name:'Tunics',
-          nodeId:'5418125011'},
-        {
-          name:'Vests',
-          nodeId:'5418126011'}
+        // {
+        //   name:'Blouses & Button-Down Shirts',
+        //   nodeId:'2368365011'},
+        // {
+        //   name:'Henleys',
+        //   nodeId:'5418124011'},
+        // {
+        //   name:'Knits & Tees',
+        //   nodeId:'1044544'},
+        // {
+        //   name:'Polos',
+        //   nodeId:'1044548'},
+        // {
+        //   name:'Tanks & Camis',
+        //   nodeId:'2368344011'},
+        // {
+        //   name:'Tunics',
+        //   nodeId:'5418125011'},
+        // {
+        //   name:'Vests',
+        //   nodeId:'5418126011'}
       ]
     },
     {

@@ -6,6 +6,7 @@ import * as mutationType from './mutation-types'
 
 export default {
   requestGetAdvertisingBrowseNode: ({ commit }, { cate, node }) => {
+    console.log(node)
     commit(mutationType.SET_CURRENT_BROWSE_NODE, {node})
     return getAdvertisingBrowseNode(node.nodeId)
       .then(data => {

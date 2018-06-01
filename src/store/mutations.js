@@ -4,6 +4,7 @@ export default {
   },
 
   SET_CURRENT_BROWSE_NODE (state, currentBrowseNode) {
+    state.currentBrowseNode = {}
     state.currentBrowseNode.nodeId = currentBrowseNode.node.nodeId
     state.currentBrowseNode.name = currentBrowseNode.node.name
   },
