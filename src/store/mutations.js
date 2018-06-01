@@ -2,6 +2,11 @@ export default {
   SET_CURRENT_DEPTH (state, currentDepth) {
     state.currentDepth = currentDepth
   },
+
+  SET_CURRENT_BROWSE_NODE (state, currentBrowseNode) {
+    state.currentBrowseNode.nodeId = currentBrowseNode.node.nodeId
+    state.currentBrowseNode.name = currentBrowseNode.node.name
+  },
   SET_SUBMISSIONS (state, submissions) {
     console.log(submissions)
     state.submissions.splice(0, state.submissions.length)

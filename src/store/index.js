@@ -10,7 +10,10 @@ Vue.use(Vuex)
 
 const state = {
   currentDepth: 6,
-  // selectedNodes: [],
+  currentBrowseNode: {
+    name: 'Tops & Tees',
+    nodeId: '2368343011'
+  },
   submissions: [],
   topSellers: [],
   attributes: []

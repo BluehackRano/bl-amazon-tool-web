@@ -51,7 +51,8 @@ export default {
       'categories'
     ]),
     ...mapState([
-      'currentDepth'
+      'currentDepth',
+      'currentBrowseNode'
     ])
   },
   data () {
@@ -75,7 +76,7 @@ export default {
           cates.push(this.categories[i].selected)
         }
       }
-      alert (cates)
+      alert (JSON.stringify(this.currentBrowseNode))
     }
   }
 }
