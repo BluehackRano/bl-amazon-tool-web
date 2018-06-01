@@ -1,5 +1,6 @@
 import {
-  getAdvertisingBrowseNode
+  getAdvertisingBrowseNode,
+  getToolTitles
 } from '../api'
 
 import * as mutationType from './mutation-types'
@@ -16,6 +17,12 @@ export default {
           commit(mutationType.SET_CURRENT_DEPTH, currentDepth)
         }
       })
+  },
+  requestGetToolTitles: ({ commit }, { node }) => {
+    return getToolTitles(node.nodeId)
+      .then(data => {
+        let titles = data.titles
+        commit(mutationType.SET_TITLES, {titles})
+      })
   }
-
 }

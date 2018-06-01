@@ -9,15 +9,22 @@ import categories from './modules/categories'
 Vue.use(Vuex)
 
 const state = {
-  currentDepth: 5,
-  currentBrowseNode: null,
-  // {
-  //   name: 'Tops & Tees',
-  //   nodeId: '2368343011'
-  // },
+  // currentDepth: 5,
+  currentDepth: 6, // TODO: comment this
+  currentBrowseNode: // null
+  // TODO: comment these
+  {
+    name: 'Tops & Tees',
+    nodeId: '2368343011'
+  },
+  titles: [],
   submissions: [],
   topSellers: [],
   attributes: []
+}
+
+const getters = {
+  titles: state => state.titles
 }
 
 const store = new Vuex.Store({
@@ -26,7 +33,8 @@ const store = new Vuex.Store({
     categories
   },
   actions,
-  mutations
+  mutations,
+  getters
 })
 
 export default store

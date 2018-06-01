@@ -110,11 +110,12 @@ const state = {
     {
       depth: 5,
       label: '05',
-      selected: null,
-      // {
-      //   name:'Tops & Tees',
-      //   nodeId:'2368343011'
-      // },
+      selected: // null,
+      // TODO: comment these
+      {
+        name:'Tops & Tees',
+        nodeId:'2368343011'
+      },
       nodes: [
         {
           name:'Dresses',

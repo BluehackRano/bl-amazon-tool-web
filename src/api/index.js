@@ -42,3 +42,18 @@ export function getAdvertisingBrowseNode (nodeId) {
 /**
  * /tool APIs
  */
+export function getToolTitles (nodeId) {
+  console.log(nodeId)
+  return new Promise((resolve, reject) => {
+    var toolApi = new BlAmazonApi.ToolApi()
+    toolApi.getToolTitles(nodeId, (error, data, response) => {
+      if (error) {
+        console.error(error)
+        reject(error)
+      } else {
+        // console.log('getAdvertisingBrowseNode() API called successfully. Returned data: ')
+        resolve(data.data)
+      }
+    })
+  })
+}

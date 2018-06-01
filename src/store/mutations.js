@@ -8,6 +8,13 @@ export default {
     state.currentBrowseNode.nodeId = currentBrowseNode.node.nodeId
     state.currentBrowseNode.name = currentBrowseNode.node.name
   },
+
+  SET_TITLES (state, titles) {
+    state.titles = []
+    for (let i = 0; i < titles.titles.length; i++) {
+      state.titles.push(titles.titles[i])
+    }
+  },
   SET_SUBMISSIONS (state, submissions) {
     console.log(submissions)
     state.submissions.splice(0, state.submissions.length)
