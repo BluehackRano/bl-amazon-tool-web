@@ -1,10 +1,11 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import Category from '@/components/Category'
+import Filter from '@/components/Filter'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   routes: [
     {
@@ -13,10 +14,13 @@ export default new Router({
       component: Category
     },
     {
-      path: '/filtering'
+      path: '/category/filter',
+      name: 'Filter',
+      component: Filter
     },
     {
-      path: '/word_cloud'
+      path: '/category/word-cloud',
+      name: 'WordCloud'
     }
   ]
 })

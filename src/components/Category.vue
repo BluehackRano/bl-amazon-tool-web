@@ -55,11 +55,6 @@ export default {
       'currentBrowseNode'
     ])
   },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },
   methods: {
     categorySelected (cate, node) {
       this.$store.dispatch('requestGetAdvertisingBrowseNode', {
@@ -77,6 +72,7 @@ export default {
         }
       }
       alert (JSON.stringify(this.currentBrowseNode))
+      this.$router.push({ name: 'Filter' })
     }
   }
 }
