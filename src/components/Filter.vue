@@ -35,6 +35,28 @@
       </div>
     </div>
 
+    <div class="filter-dic-table-wrapper">
+      <b-table :data="tableData">
+        <template slot-scope="props">
+          <b-table-column field="id" label="ID" width="40" sortable numeric>
+            {{ props.row.id }}
+          </b-table-column>
+
+          <b-table-column field="first_name" label="First Name" sortable>
+            {{ props.row.first_name }}
+          </b-table-column>
+
+          <b-table-column field="last_name" label="Last Name" sortable>
+            {{ props.row.last_name }}
+          </b-table-column>
+
+          <b-table-column field="date" label="Date" sortable centered>
+            {{ props.row.date }}
+          </b-table-column>
+        </template>
+      </b-table>
+    </div>
+
     <div class="filter-button-wrapper">
       <button class="filter-button" @click="filterButtonClicked">걸러내기</button>
     </div>
@@ -59,16 +81,58 @@
         'currentBrowseNode'
       ])
     },
+    data () {
+      return {
+        tableData: [
+          { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
+          { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
+          { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
+          { 'id': 4, 'first_name': 'Clarenceaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'last_name': 'Flzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzores', 'date': '2016-04-10 10:28:46', 'gender': 'Maleaaaaaaaaaaaaaaaaaaaaaaaaa' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
+          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
+        ],
+        columns: [
+          {
+            field: 'id',
+            label: 'ID',
+            width: '40',
+            numeric: true
+          },
+          {
+            field: 'first_name',
+            label: 'First Name',
+          },
+          {
+            field: 'last_name',
+            label: 'Last Name',
+          },
+          {
+            field: 'date',
+            label: 'Date',
+            centered: true
+          },
+          {
+            field: 'gender',
+            label: 'Gender',
+          }
+        ]
+      }
+    },
     created () {
       if (!this.currentBrowseNode) {
         this.$router.push({ name: 'Category' })
         return
       }
-      this.$store.dispatch('requestGetToolTitles', {
-        node: this.currentBrowseNode
-      }).then(() => {
-        console.log('done requestGetToolTitles()')
-      })
+//      this.$store.dispatch('requestGetToolTitles', {
+//        node: this.currentBrowseNode
+//      }).then(() => {
+//        console.log('done requestGetToolTitles()')
+//      })
     },
     methods: {
       filterButtonClicked () {
@@ -131,6 +195,16 @@
           }
         }
       }
+    }
+
+    .filter-dic-table-wrapper {
+      margin-top: 50px;
+      width: 100%;
+      height: 400px;
+      min-height: 400px;
+      overflow-y: auto;
+      border: solid 1px #c0c0c0;
+
     }
 
     span.current {
