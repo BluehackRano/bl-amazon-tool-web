@@ -1,0 +1,1 @@
+export const SHOW_ADD_DICT_POPUP = 'SHOW_ADD_DICT_POPUP'

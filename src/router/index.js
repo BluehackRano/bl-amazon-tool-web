@@ -1,13 +1,18 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from 'vue-router'
 import Category from '@/components/Category'
 import Filter from '@/components/Filter'
+import Dictionary from '@/components/Dictionary'
 
-Vue.use(VueRouter)
+Vue.use(Router)
 
-export default new VueRouter({
+export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      redirect: '/category'
+    },
     {
       path: '/category',
       name: 'Category',
@@ -19,8 +24,9 @@ export default new VueRouter({
       component: Filter
     },
     {
-      path: '/category/word-cloud',
-      name: 'WordCloud'
+      path: '/category/dictionary',
+      name: 'Dictionary',
+      component: Dictionary
     }
   ]
 })

@@ -6,14 +6,14 @@
       <template
         v-if="cate.selected">
         <template v-if="index === 0">
-          <span>{{ cate.selected.name }}</span>
+          <span>{{ cate.selected.name }}({{ cate.selected.nodeId }})</span>
         </template>
         <template v-else>
           <template v-if="cate.selected.nodeId !== currentBrowseNode.nodeId">
-            <span> > {{ cate.selected.name }}</span>
+            <span> > {{ cate.selected.name }}({{ cate.selected.nodeId }})</span>
           </template>
           <template v-else>
-            <span class="current"> > {{ cate.selected.name }} ({{ cate.selected.nodeId }})</span>
+            <span class="current"> > {{ cate.selected.name }}({{ cate.selected.nodeId }})</span>
           </template>
         </template>
       </template>
@@ -36,29 +36,32 @@
     </div>
 
     <div class="filter-dic-table-wrapper">
-      <b-table :data="tableData">
+      <span>&nbsp;&nbsp;&nbsp;Dictionary ({{ dictionary.length }})</span>
+      <b-table :data="dictionary">
         <template slot-scope="props">
-          <b-table-column field="id" label="ID" width="40" sortable numeric>
-            {{ props.row.id }}
+          <b-table-column field="node_id" label="BrowseNode" width="40" sortable numeric>
+            {{ props.row.node_id }}
           </b-table-column>
 
-          <b-table-column field="first_name" label="First Name" sortable>
-            {{ props.row.first_name }}
+          <b-table-column field="attr_us_name" label="ATTRs" sortable>
+            {{ props.row.attr_us_name }}
           </b-table-column>
 
-          <b-table-column field="last_name" label="Last Name" sortable>
-            {{ props.row.last_name }}
+          <b-table-column field="sub_attr_us_name" label="SubAttrs" sortable>
+            {{ props.row.sub_attr_us_name }}
           </b-table-column>
 
-          <b-table-column field="date" label="Date" sortable centered>
-            {{ props.row.date }}
+          <b-table-column field="dic_word" label="Words" sortable>
+            {{ props.row.dic_word }}
           </b-table-column>
         </template>
       </b-table>
     </div>
 
     <div class="filter-button-wrapper">
-      <button class="filter-button" @click="filterButtonClicked">걸러내기</button>
+      <button class="filter-button"
+              v-if="this.dictionary.length > 0"
+              @click="filterButtonClicked">걸러내기</button>
     </div>
   </div>
 </template>
@@ -74,7 +77,8 @@
     computed: {
       ...mapGetters([
         'categories',
-        'titles'
+        'titles',
+        'dictionary'
       ]),
       ...mapState([
         'currentDepth',
@@ -83,44 +87,6 @@
     },
     data () {
       return {
-        tableData: [
-          { 'id': 1, 'first_name': 'Jesse', 'last_name': 'Simmons', 'date': '2016-10-15 13:43:27', 'gender': 'Male' },
-          { 'id': 2, 'first_name': 'John', 'last_name': 'Jacobs', 'date': '2016-12-15 06:00:53', 'gender': 'Male' },
-          { 'id': 3, 'first_name': 'Tina', 'last_name': 'Gilbert', 'date': '2016-04-26 06:26:28', 'gender': 'Female' },
-          { 'id': 4, 'first_name': 'Clarenceaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 'last_name': 'Flzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzores', 'date': '2016-04-10 10:28:46', 'gender': 'Maleaaaaaaaaaaaaaaaaaaaaaaaaa' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' },
-          { 'id': 5, 'first_name': 'Anne', 'last_name': 'Lee', 'date': '2016-12-06 14:38:38', 'gender': 'Female' }
-        ],
-        columns: [
-          {
-            field: 'id',
-            label: 'ID',
-            width: '40',
-            numeric: true
-          },
-          {
-            field: 'first_name',
-            label: 'First Name',
-          },
-          {
-            field: 'last_name',
-            label: 'Last Name',
-          },
-          {
-            field: 'date',
-            label: 'Date',
-            centered: true
-          },
-          {
-            field: 'gender',
-            label: 'Gender',
-          }
-        ]
       }
     },
     created () {
@@ -128,15 +94,60 @@
         this.$router.push({ name: 'Category' })
         return
       }
-//      this.$store.dispatch('requestGetToolTitles', {
-//        node: this.currentBrowseNode
-//      }).then(() => {
-//        console.log('done requestGetToolTitles()')
-//      })
+
+      this.$store.dispatch('requestGetToolTitles', {
+        node: this.currentBrowseNode
+      }).then(() => {
+        console.log('done requestGetToolTitles()')
+
+        this.$store.commit('RESET_DICTIONARY', {})
+        for (let i = 0; i < this.categories.length; i++) {
+          if (this.categories[i].selected) {
+            if (this.categories[i].depth < 5) {
+              continue
+            }
+            this.$store.dispatch('requestGetDictionaryBrowseNodesAll', {
+              node: this.categories[i].selected
+            }).then(() => {
+              console.log('done requestGetDictionaryBrowseNodesAll()')
+            })
+          }
+        }
+      })
     },
     methods: {
       filterButtonClicked () {
         console.log('filterButtonClicked')
+        if (this.dictionary.length < 1) {
+          alert('No dictionary Data.')
+          return
+        }
+
+        let subAttrIdList = []
+        let filterList = []
+        for (let i = 0; i < this.dictionary.length; i++) {
+          subAttrIdList.push(this.dictionary[i].sub_attr_id)
+          filterList.push(this.dictionary[i].dic_word)
+        }
+
+        // reset title_dic_count
+        this.$store.dispatch('requestPostDictionarySubAttrsWordsCountReset', {
+          currentBrowseNode: this.currentBrowseNode,
+          subAttrIds: subAttrIdList
+        }).then(data => {
+          console.log('done requestPostDictionarySubAttrsWordsCountReset()')
+          console.log(data)
+
+          // filtering start
+          this.$store.dispatch('requestGetDictionaryWordsFiltered', {
+            currentBrowseNode: this.currentBrowseNode,
+            words: filterList
+          }).then(() => {
+            console.log('done requestGetDictionaryWordsFiltered()')
+            this.$router.push({ name: 'Dictionary' })
+          })
+        })
+
       }
     }
   }
